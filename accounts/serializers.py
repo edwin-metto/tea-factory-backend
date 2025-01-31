@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from .models import CustomUser
+from .models import Farmer, Harvest, Payment
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,3 +33,22 @@ class LoginSerializer(serializers.Serializer):
         if user and user.is_active:
             return user
         raise serializers.ValidationError("Invalid credentials")
+    
+
+   
+
+class FarmerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Farmer
+        fields = '__all__'
+
+class HarvestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Harvest
+        fields = '__all__'
+
+class PaymentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment
+        fields = '__all__'
+

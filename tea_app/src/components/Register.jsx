@@ -39,7 +39,7 @@ export default function Register() {
   return (
     <form 
     onSubmit={handleSubmit} 
-    className="max-w-md w-full bg-white rounded-2xl shadow-lg p-6 space-y-6"
+    className="max-w-md w-full bg-white rounded-2xl shadow-lg p-6 space-y-6 min-h-screen justify-center"
   >
     <h2 className="text-2xl font-bold text-center text-gray-700">Register</h2>
     

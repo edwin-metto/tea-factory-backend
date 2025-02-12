@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from .models import CustomUser
-from .models import Farmer, Harvest, Payment
+from .models import Farmer, Harvest, Payment, HarvestUser
+from django.db.models import Sum
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,15 +38,47 @@ class LoginSerializer(serializers.Serializer):
 
    
 
+from rest_framework import serializers
+from .models import Farmer, Payment
+
 class FarmerSerializer(serializers.ModelSerializer):
+    total_payments = serializers.SerializerMethodField()
+
     class Meta:
         model = Farmer
-        fields = '__all__'
+        fields = ['id', 'name', 'phone', 'total_payments']  # Include 'total_payments'
+
+    def get_total_payments(self, obj):
+        # Calculate the total payments for the farmer (assuming 'farmer' is related to Payment)
+        total_payments = Payment.objects.filter(farmer=obj, is_paid=True).aggregate(Sum('amount'))['amount__sum'] or 0
+        return total_payments
+
+
+# class HarvestSerializer(serializers.ModelSerializer):
+#     user = CustomUser()
+#     class Meta:
+#         model = Harvest
+#         fields = [ "id","user", "date", "kilos" ]  
+from rest_framework import serializers
+from .models import Harvest, CustomUser
+
+# class HarvestSerializer(serializers.ModelSerializer):
+#     # Use PrimaryKeyRelatedField to represent the relationship
+#     farmer = FarmerSerializer()
+
+#     class Meta:
+#         model = Harvest
+#         fields = ["id", "farmer", "date", "kilos"]
+
 
 class HarvestSerializer(serializers.ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
+    userdetails = UserSerializer(read_only=True)
+    username = serializers.CharField(source='user.username', read_only=True)
+
     class Meta:
-        model = Harvest
-        fields = '__all__'
+        model = HarvestUser
+        fields = ["id", "user", "username","userdetails", "date", "kilos", "label", 'status', "message"]
 
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:

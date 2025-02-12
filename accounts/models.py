@@ -13,7 +13,6 @@ class CustomUser(AbstractUser):
 
 
 class Farmer(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=15)
 
@@ -33,6 +32,21 @@ class Harvest(models.Model):
 
     def __str__(self):
         return f"{self.farmer.user.username} - {self.kilos}kg on {self.date} ({self.status})"
+    
+
+class HarvestUser(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    label = models.CharField(max_length=100, default='Tea')
+    date = models.DateField(auto_now_add=True)
+    kilos = models.FloatField()
+    message = models.CharField(default='pending..')
+    status = models.CharField(
+        max_length=10, choices=[('Pending', 'Pending'), ('Approved', 'Approved'), ('Rejected', 'Rejected')],
+        default='Pending'
+    )
+
+    def __str__(self):
+        return self.label
     
 class Payment(models.Model):
     farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)

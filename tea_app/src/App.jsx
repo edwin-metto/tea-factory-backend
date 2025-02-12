@@ -10,17 +10,19 @@ import Dash from "./components/Dash";
 function App() {
   return (
     <div>
-    <Router>
-      <Routes>
-        
-      <Route path="/" element={<Dash />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/farmer-dashboard" element={<FarmerDashboard />} />
-        <Route path="/manager-dashboard" element={<ManagerDashboard />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
-      </Routes>
-    </Router>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Dash />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/farmer-dashboard" element={<FarmerDashboard />} />
+          <Route path="/manager-dashboard" element={<ManagerDashboard />} />
+
+          {/* Admin Dashboard Route */}
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          
+        </Routes>
+      </Router>
     </div>
   );
 }

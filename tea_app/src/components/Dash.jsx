@@ -17,7 +17,6 @@ function Dash() {
                         />
                         <div className="mt-6">
                             <div className="font-bold text-2xl text-gray-800 mb-4">Fresh Tea</div>
-                            
                         </div>
                         <div className="mt-8">
                             <button 
@@ -32,6 +31,14 @@ function Dash() {
                             >
                                 Login
                             </button>
+                            
+                            {/* Button to navigate to Admin Dashboard */}
+                            {/* <button 
+                                onClick={() => navigate('/admin-dashboard')} 
+                                className="m-3 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
+                            >
+                                Go to Admin Dashboard
+                            </button> */}
                         </div>
                     </div>
                 </div>

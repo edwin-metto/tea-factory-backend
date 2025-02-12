@@ -18,7 +18,10 @@ export default function Login() {
     });
 
     if (response.ok) {
+      
       const data = await response.json();
+    
+      localStorage.setItem('userid',data.id)
       if (data.role === "farmer") navigate("/farmer-dashboard");
       else if (data.role === "manager") navigate("/manager-dashboard");
       else if (data.role === null) navigate("/admin-dashboard");

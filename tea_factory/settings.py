@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'accounts',
     'rest_framework',
     'corsheaders',
+    'mpesa_stk',
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -132,3 +133,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+
+MPESA_CONSUMER_KEY="TB8m4LpLrZey1LpeEtKkqdap6LUPv4dkF4BxGvfj9QvF987m"
+MPESA_CONSUMER_SECRET="C1zqSqRQunPhsWqszWSk3xLJmADcwcmStdgbnjzN418vGIKXaWPKgeA6WudxGoDL"
+MPESA_SHORTCODE="174379"
+MPESA_PASSKEY="bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"

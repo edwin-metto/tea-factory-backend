@@ -61,28 +61,6 @@ class HarvestDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = HarvestSerializer
     permission_classes = [AllowAny]
 
-# @api_view(['POST'])
-# @permission_classes([AllowAny])
-# def approve_harvest(request, id):
-#     harvest = get_object_or_404(Harvest, id=id)
-#     harvest.status = 'Approved'
-#     harvest.save()
-#     return Response({"message": "Harvest approved"})
-
-
-# @api_view(['POST'])
-# @permission_classes([AllowAny])
-# def approve_harvest(request, id):
-#     try:
-#         # Try to fetch the harvest record by id
-#         harvest = Harvest.objects.get(id=id)
-#         harvest.status = 'Approved'
-#         harvest.save()
-#         print(harvest )
-#         return Response({"message": "Harvest approved"})
-#     except Harvest.DoesNotExist:
-#         return Response({"detail": "No Harvest matches the given query."}, status=404)
-
 
 
 
@@ -175,42 +153,6 @@ def get_harvests_byId(request, id):
 
 
 
-# @api_view(['POST'])
-# def record_harvests(request):
-#     serializer = HarvestSerializer(data=request.data)
-
-#     if serializer.is_valid():
-
-#         userid = request.data.get('userid')
-#         if userid:
-#             try:
-        
-#                 user = CustomUser.objects.get(id=userid)
-            
-#                 serializer.validated_data["user"] = user
-#             except CustomUser.DoesNotExist:
-#                 return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
-
-        
-#         serializer.save()
-
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
-#     else:
-#         print(f"Validation Errors: {serializer.errors}")
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-# @api_view(['POST'])
-# def record_harvests(request):
-#     serializer = HarvestSerializer(data=request.data)
-
-#     if serializer.is_valid():
-        
-#         serializer.save()
-
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
-#     else:
-#         print(f"Validation Errors: {serializer.errors}")
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def record_harvests(request):

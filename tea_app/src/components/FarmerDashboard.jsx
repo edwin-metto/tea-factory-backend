@@ -43,14 +43,22 @@ export default function FarmerDashboard() {
 
     const fetchAmountOwed = async () => {
         try {
-            const res = await fetch("http://127.0.0.1:8000/api/accounts/api/farmers/amount-owed/");
-            if (!res.ok) throw new Error("Failed to fetch amount owed");
+            const res = await fetch(`http://127.0.0.1:8000/api/accounts/api/get_harvests_byId/${userid}/`);
+            if (!res.ok) throw new Error("Failed to fetch harvest history");
             const data = await res.json();
-            setAmountOwed(data.amount);
+    
+            
+            const totalKilos = data.reduce((accum, harvest) => accum + harvest.kilos, 0);
+    
+            
+            const amount = totalKilos * 50;
+    
+            setAmountOwed(amount);
         } catch (error) {
-            console.error("Error fetching amount owed:", error);
+            console.error("Error fetching harvest history:", error);
         }
     };
+    
 
     const fetchPaymentHistory = async () => {
         try {
@@ -93,7 +101,7 @@ export default function FarmerDashboard() {
             }
 
             setDailyHarvest("");
-            setLabel(""); // Clear label input after successful submission
+            setLabel(""); 
             alert("Harvest submitted successfully!");
             fetchHarvestHistory();
             fetchAmountOwed();
@@ -102,11 +110,13 @@ export default function FarmerDashboard() {
             alert("Failed to submit harvest");
         }
     };
-
     const handleLogout = () => {
-        localStorage.removeItem("userid");
-        navigate("/login");
-    };
+        localStorage.removeItem("role"); 
+        localStorage.removeItem("username"); 
+        navigate("/login"); 
+      };
+
+    
 
     return (
         <div className="min-h-screen bg-gradient-to-r from-green-400 to-blue-500 p-4">
@@ -121,12 +131,12 @@ export default function FarmerDashboard() {
                             <h2 className="text-xl font-bold mb-2">Profile Information</h2>
                             <p className="font-bold">Name: {profile.username}</p>
                             <p>Email: {profile.email}</p>
-                            <p><strong>Total Payments:</strong> ${profile.totalPayments}</p>
+                            <p><strong>Total Payments:</strong> shillings{profile.totalPayments}</p>
                         </div>
 
                         <div className="mb-6">
                             <h2 className="text-xl font-bold mb-2">Amount Owed</h2>
-                            <p><strong>Current Amount:</strong> ${amountOwed}</p>
+                            <p><strong>Current Amount:</strong> sh.{amountOwed}</p>
                         </div>
 
                         <div className="mb-6">
@@ -150,6 +160,13 @@ export default function FarmerDashboard() {
                         >
                             Daily Harvest
                         </button>
+
+                        <button
+            onClick={handleLogout}
+            className="mt-6 px-6 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-300 m-3"
+          >
+            Logout
+   </button>
                     </div>
                 )}
 
@@ -189,6 +206,9 @@ export default function FarmerDashboard() {
                                             {new Date(harvest.date).toLocaleDateString()}: {harvest.kilos} kilos - {harvest.label}
                                             <p>  Status - {harvest.status}</p>
                                             <p>Message - {harvest.message}</p>
+                                            <p 
+                                            className={ harvest.status === 'Approved' ? 'text-green-500 font-bold': 'text-red-500  font-bold' }
+                                            >{harvest.status === 'Approved' ? 'Payment Successful': 'No payment given'}</p>
                                         </div>
                                     ))}
                                 </ul>

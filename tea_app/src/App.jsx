@@ -9,7 +9,13 @@ import Dash from "./components/Dash";
 
 function App() {
   return (
+    
     <div>
+      <div>
+      <nav >
+      <h2 className="bg-blue-800 text-white text-2xl p-2"> Greens System</h2>
+    </nav>
+      </div>
       <Router>
         <Routes>
           <Route path="/" element={<Dash />} />
@@ -18,11 +24,17 @@ function App() {
           <Route path="/farmer-dashboard" element={<FarmerDashboard />} />
           <Route path="/manager-dashboard" element={<ManagerDashboard />} />
 
-          {/* Admin Dashboard Route */}
+        
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           
         </Routes>
       </Router>
+      <div>
+      <footer className="bg-blue-600 text-white py-2 text-center">
+          <p className="text-sm">© 2025 Green's System. All Rights Reserved.</p>
+        </footer>
+
+      </div>
     </div>
   );
 }

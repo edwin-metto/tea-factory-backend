@@ -5,7 +5,7 @@ function Dash() {
     const navigate = useNavigate();
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-green-400 to-blue-500 p-4">
+        <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-green-400 to-blue-200 p-4">
             <div className="bg-white rounded-lg shadow-2xl overflow-hidden max-w-4xl w-full">
                 <div className="p-8 text-center">
                     <h1 className="text-4xl font-bold text-gray-800 mb-6">Welcome to Green's System</h1>
